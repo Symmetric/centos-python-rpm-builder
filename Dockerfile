@@ -22,6 +22,8 @@ VOLUME /rpms
 
 ONBUILD ADD . /source
 ONBUILD WORKDIR /source
+# If this repo has already been built on a different architecture, the eggs may be incompatible.
+ONBUILD RUN rm -rf .eggs
 ONBUILD RUN echo -e "[install]\ninstall-lib=/usr/lib/python2.7/site-packages" >> setup.cfg
 ONBUILD RUN PATH=/usr/local/bin:$PATH python setup.py bdist_rpm
 
