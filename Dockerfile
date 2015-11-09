@@ -10,7 +10,8 @@ RUN curl -LO https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
 RUN tar -xvf Python-2.7.8.tgz 
 RUN rm Python-2.7.8.tgz 
 WORKDIR Python-2.7.8
-RUN ./configure 
+# Use Unicode UCS-4, for compatibility with some Python dependencies.
+RUN ./configure --enable-unicode=ucs4
 RUN make
 # Note that we can't just replace the system version of Python, since yum breaks if you upgrade past 2.7.4.
 # Don't do an alt-install; instead put this python binary somewhere that's not on the path (/usr/local/bin by default).
